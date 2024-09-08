@@ -4,7 +4,6 @@ from nltk.corpus import stopwords, wordnet as wn
 from difflib import get_close_matches
 from nltk import pos_tag
 
-# Baixar os recursos necessários
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('rslp')
@@ -12,12 +11,10 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 nltk.download('averaged_perceptron_tagger')
 
-# Função para encontrar sinônimos em português
 def get_synonyms(word):
     synonyms = set(lemma.name() for syn in wn.synsets(word, lang='por') for lemma in syn.lemmas('por'))
     return synonyms
 
-# Função de similaridade semântica e correspondência de palavras próximas
 def semantic_similarity(user_input, keywords):
     user_words = word_tokenize(user_input)
     for word in user_words:
@@ -44,7 +41,7 @@ def identify_intention(user_input):
         'esportes': ['esportes', 'tênis', 'futebol', 'atividade física', 'jogar'],
         'livros': ['livros','ler', 'leitura', 'autores favoritos', 'agatha christie', 'gabriel garcía márquez'],
         'tecnologia': ['tecnologia', 'inovações', 'novidades tecnológicas', 'ferramentas digitais', 'design gráfico'],
-        'arte': ['arte', 'galeria', 'pintura', 'expressionismo', 'desenho', 'artista'],
+        'arte': ['arte','cultura', 'galeria', 'pintura', 'expressionismo', 'desenho', 'artista'],
     }
 
     for intention, keywords in intentions.items():
@@ -52,7 +49,6 @@ def identify_intention(user_input):
             return intention
     return None
 
-# Árvore de decisão expandida baseada na intenção
 def decision_tree(intention):
     responses = {
         'cidade favorita': "Maria adora Paris. Ela passou um mês lá explorando museus e cafés.",
@@ -73,7 +69,6 @@ def decision_tree(intention):
     
     return responses.get(intention, "Desculpe, não entendi sua pergunta.")
 
-# Função do chatbot aprimorado
 def chatbot():
     print("Olá! Eu sou o chatbot. Pergunte-me sobre Maria e eu tentarei responder com base na história dela.")
     
@@ -83,12 +78,9 @@ def chatbot():
             print("Chatbot: Até mais!")
             break
 
-        # Identificar a intenção do usuário
         intention = identify_intention(user_input)
         
-        # Responder com base na árvore de decisão
         response = decision_tree(intention)
         print(f"Chatbot: {response}")
 
-# Iniciar o chatbot
 chatbot()
